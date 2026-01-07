@@ -8,7 +8,7 @@
 #include "ouvrirpince.h"
 #include "fermerpince.h"
 #include "deplacer.h"
-
+#include "rotation.h"
 
 
 int main() {
@@ -26,6 +26,12 @@ int main() {
             double dx, dy, dz;
             fichier >> dx>> dy>> dz;
             plan.ajouter(new Deplacer(dx, dy, dz));
+        }
+
+        else if (commande == "ROTATION") {
+           int angle;
+           fichier >> angle;
+           plan.ajouter(new rotation(angle));
         }
         else if (commande == "OUVRIR_PINCE") {
             plan.ajouter(new OuvrirPince());
