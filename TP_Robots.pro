@@ -21,6 +21,7 @@ SOURCES += \
         fermerpince.cpp \
         mainacompleter.cpp \
         ouvrirpince.cpp \
+        rotation.cpp \
         sequenceactions.cpp
 
 # Default rules for deployment.
@@ -34,4 +35,5 @@ HEADERS += \
     deplacer.h \
     fermerpince.h \
     ouvrirpince.h \
+    rotation.h \
     sequenceactions.h
