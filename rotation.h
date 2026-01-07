@@ -1,11 +1,19 @@
 #ifndef ROTATION_H
 #define ROTATION_H
+#include "actionrobot.h"
+#include "contexterobot.h"
 
-
-class rotation
+class rotation : public ActionRobot
 {
+private:
+    int m_angle;
 public:
-    rotation();
+    rotation(int p_angle);
+    ~rotation() override = default ;
+
+    void executer(ContexteRobot& ctx) override;
+    void afficherNom() const override;
+
 };
 
-#endif // ROTATION_H
+#endif // DEPLACER_H
