@@ -52,12 +52,12 @@ void ContexteRobot::fermerPince() {
 }
 
 void ContexteRobot::Rotation(int p_angle){
-          m_angleActuel = m_angleActuel + p_angle;
+          m_angleActuel =  p_angle;
                              }
 
 // Affichage
 void ContexteRobot::afficherPosition() {
     std::cout << "Position : (" << m_x << ", " << m_y << ", " << m_z << ")";
     std::cout << " | Pince " << (m_pince_ouverte ? "ouverte" : "fermée") << std::endl;
-    std::cout << " | Angle " << (m_angleActuel)<<"°" << std::endl;
+    std::cout << " | Angle (" << (m_angleActuel)<<"°)" << std::endl;
 }

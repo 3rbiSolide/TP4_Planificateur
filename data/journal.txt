@@ -1,0 +1,6 @@
+DEPLACER 10 0 0
+ouvrir pince
+Rotation 90 degres
+fermer pince
+Rotation -45 degres
+DEPLACER 0 0 -20

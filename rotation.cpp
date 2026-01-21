@@ -13,5 +13,5 @@ void rotation::executer(ContexteRobot &ctx){
 
 void rotation::afficherNom() const{
     std::cout << "Action : Rotation de ("
-        << m_angle << std::endl;
+        << m_angle <<")" << std::endl;
 }
