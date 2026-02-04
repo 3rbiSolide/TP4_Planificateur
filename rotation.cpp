@@ -8,7 +8,7 @@ rotation::rotation(int p_angle): m_angle(p_angle)
 
 void rotation::executer(ContexteRobot &ctx){
     ctx.Rotation(ctx.getAngleActuel()+ m_angle);
-    afficherNom();
+
 }
 
 void rotation::afficherNom() const{

@@ -1,12 +1,13 @@
 #include "contexterobot.h"
 #include <iostream>
+using namespace std;
 
 // Limites autorisées
 static const double XMIN = -1000;
 static const double XMAX = 1000;
 static const double YMIN = -1000;
 static const double YMAX = 1000;
-static const double ZMIN = 0;
+static const double ZMIN = -1000;
 static const double ZMAX = 1000;
 
 
@@ -24,6 +25,7 @@ double ContexteRobot::getY() { return m_y; }
 double ContexteRobot::getZ() { return m_z; }
 bool   ContexteRobot::PinceEstOuverte() { return m_pince_ouverte; }
 int ContexteRobot::getAngleActuel() { return m_angleActuel; }
+
 
 // Actions
 void ContexteRobot::deplacerVers(double p_x, double p_y, double p_z) {
@@ -57,7 +59,42 @@ void ContexteRobot::Rotation(int p_angle){
 
 // Affichage
 void ContexteRobot::afficherPosition() {
+
+    cout << "position : X=" << m_x <<" mm,  Y=" << m_y << " mm,  Z=" << m_z << " mm" <<endl;
+
+    if( m_pince_ouverte==1){
+        cout << "Pince    : ouverte " <<endl;
+    }
+                else {
+                cout << "Pince    : fermee "  <<endl;
+    }
+    cout << "angle :  "  << m_angleActuel <<endl;
+
+
+
+
+
+
+    /*
     std::cout << "Position : (" << m_x << ", " << m_y << ", " << m_z << ")";
     std::cout << " | Pince " << (m_pince_ouverte ? "ouverte" : "fermée") << std::endl;
     std::cout << " | Angle (" << (m_angleActuel)<<"°)" << std::endl;
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

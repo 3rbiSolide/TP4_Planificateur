@@ -7,7 +7,7 @@ FermerPince::FermerPince()
 
 void FermerPince::executer(ContexteRobot &ctx){
     ctx.fermerPince();
-    afficherNom();
+
 }
 
 void FermerPince::afficherNom() const{
