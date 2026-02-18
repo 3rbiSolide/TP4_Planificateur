@@ -9,6 +9,7 @@
 #include "fermerpince.h"
 #include "deplacer.h"
 #include "rotation.h"
+#include "limits"
 
 
 int main() {
@@ -22,16 +23,38 @@ int main() {
     SequenceActions plan;
     std::string commande;
     while (fichier >> commande) {
+
         if (commande == "DEPLACER"){
             double dx, dy, dz;
-            fichier >> dx>> dy>> dz;
+
+            if (!(fichier >> dx >> dy >> dz)) {
             plan.ajouter(new Deplacer(dx, dy, dz));
+
+            std::cerr << "Erreur : paramètres invalides pour DEPLACER\n";
+            fichier.clear();
+            fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+            }
+            else {
+                plan.ajouter(new Deplacer(dx, dy, dz));
+            }
         }
 
         else if (commande == "ROTATION") {
            int angle;
-           fichier >> angle;
-           plan.ajouter(new rotation(angle));
+
+           if (!(fichier >> angle)) {
+
+
+           std::cerr << "Erreur : paramètres invalides pour ROTATION\n";
+           fichier.clear();
+           fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+           continue;
+
+           }
+           else {
+                         plan.ajouter(new rotation(angle));
+           }
         }
         else if (commande == "OUVRIR_PINCE") {
             plan.ajouter(new OuvrirPince());
@@ -48,7 +71,7 @@ int main() {
 
     ContexteRobot ctx(0, 0, 100, true);
     plan.executer(ctx);
-    ctx.afficherPosition();
+
     plan.nettoyer();
 
     return 0;
