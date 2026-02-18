@@ -4,117 +4,68 @@
 #include "fermerpince.h"
 #include "ouvrirpince.h"
 #include "rotation.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <thread>
-#include <chrono>
-//#include "...............
-//#include "...............
-//.........................
-using namespace std;
+#include "limits"
 
 
 int main() {
 
+    std::ifstream fichier("data/plan.txt");
+    if (!fichier.is_open()){
+        std::cerr << "Erreur : impossible d'ouvrir le fichier plan.txt" << std::endl;
+        return 1;
+    }
 
-    const auto start = std::chrono::high_resolution_clock::now();
-    std::this_thread::sleep_for(chrono::seconds(2));
+    SequenceActions plan;
+    std::string commande;
+    while (fichier >> commande) {
 
+        if (commande == "DEPLACER"){
+            double dx, dy, dz;
 
+            if (!(fichier >> dx >> dy >> dz)) {
+            plan.ajouter(new Deplacer(dx, dy, dz));
 
-    ContexteRobot ctx(0, 0, 0,  true);
+            std::cerr << "Erreur : paramètres invalides pour DEPLACER\n";
+            fichier.clear();
+            fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+            }
+            else {
+                plan.ajouter(new Deplacer(dx, dy, dz));
+            }
+        }
 
-ifstream fichier("data/plan.txt");
-if (!fichier.is_open()){
-    cout << "Erreur : impossible d'ouvrir le fichier  plan.txt" << endl;
-    return 1;
-}
-ofstream journal("data/journal.txt", ios::out);
-if (!journal.is_open()){
-    cout << "Erreur : impossible d'ouvrir le fichier  journal.txt" << endl;
-    return 1;
-}
+        else if (commande == "ROTATION") {
+           int angle;
 
- SequenceActions plan;
-
- cout << "---Execution du plan ---" <<endl;
- journal << "===== JOURNAL D'ACTIONS ====="<< "\n";
- journal << "Format: Action + paramètres"<< "\n";
- journal << "==============================="<< "\n";
-
- string commande;
- while(fichier >> commande){
-     if(commande == "DEPLACER"){
-         double dx, dy, dz;
-         fichier >> dx >> dy >> dz;
-         plan.ajouter(new Deplacer(dx,dy,dz));
-         journal << "Action exécutée : DEPLACER | dx=" << dx << " mm, dy=" << dy << " mm, dz=" << dz <<"mm" << "\n";
-          cout << "Action : DEPLACER " <<  dx << " " << dy << " " << dz <<endl;
+           if (!(fichier >> angle)) {
 
 
-     }
-     else if(commande == "FERMER_PINCE"){
-         plan.ajouter(new FermerPince);
-         journal <<"fermer pince"<< "\n";
-         cout << "Action : fermer pince"<< endl;
+           std::cerr << "Erreur : paramètres invalides pour ROTATION\n";
+           fichier.clear();
+           fichier.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+           continue;
 
+           }
+           else {
+                         plan.ajouter(new rotation(angle));
+           }
+        }
+        else if (commande == "OUVRIR_PINCE") {
+            plan.ajouter(new OuvrirPince());
+        }
 
-     }
-     else if(commande == "OUVRIR_PINCE"){
-         plan.ajouter(new OuvrirPince);
-         journal <<"ouvrir pince"<< "\n";
-         cout << "Action : ouvrir pince"<< endl;
+        else if (commande == "FERMER_PINCE") {
+           plan.ajouter(new FermerPince());
+        }
 
+        else {
+            std::cerr << "Commande inconnue : "<< commande << std::endl;
+        }
+    }
 
-     }
-     else if(commande == "ROTATION"){
-         double angle;
-         fichier >> angle;
-         plan.ajouter(new rotation(angle));
-         journal << "Action exécutée : Rotation |" << angle <<" " << "degres" << "\n";
-          cout << "Action : Rotation " << angle <<" " << "degres" <<endl;
-     }
-
-     else {
-         journal <<"commande inconnue : "<< commande << "\n";
-         cerr << "commande inconnue : " << commande << endl;
-
-     }
-
-     std::this_thread::sleep_for(chrono::seconds(2));
- }
- cout <<""<< endl;
- cout << "--- Etat final du robot ---" <<endl;
- cout << "======== ETAT DU ROBOT ========" << endl;
-plan.executer(ctx);
-ctx.afficherPosition();
-
- cout << "================================= " <<endl;
-
-
-
- const auto end = std::chrono::high_resolution_clock::now();
- auto duree = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
-
-/*
-
-
-
-
-    plan.ajouter(new Deplacer(100, 0, 0));
-    plan.ajouter(new FermerPince());
-    plan.ajouter(new Deplacer(100, 0, 0));
-    plan.ajouter(new Deplacer(100, 0, 0));
-    plan.ajouter(new OuvrirPince());
-    plan.ajouter(new Deplacer(0, 0, 100));
-    plan.ajouter(new Deplacer(0, 0, 100));
-    plan.ajouter(new Rotation(80));
-
-
-*/
-
-
+    ContexteRobot ctx(0, 0, 100, true);
+    plan.executer(ctx);
 
     plan.nettoyer();
 
