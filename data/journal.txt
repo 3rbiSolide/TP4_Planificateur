@@ -1,9 +1,0 @@
-===== JOURNAL D'ACTIONS =====
-Format: Action + paramètres
-===============================
-Action exécutée : DEPLACER | dx=10 mm, dy=0 mm, dz=0mm
-ouvrir pince
-Action exécutée : Rotation |90 degres
-fermer pince
-Action exécutée : Rotation |-45 degres
-Action exécutée : DEPLACER | dx=0 mm, dy=0 mm, dz=-20mm

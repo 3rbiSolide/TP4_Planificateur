@@ -1,8 +1,13 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "contexterobot.h"
 #include "sequenceactions.h"
-#include "deplacer.h"
-#include "fermerpince.h"
+#include "actionrobot.h"
 #include "ouvrirpince.h"
+#include "fermerpince.h"
+#include "deplacer.h"
 #include "rotation.h"
 #include "limits"
 

@@ -7,7 +7,7 @@ OuvrirPince::OuvrirPince()
 
 void OuvrirPince::executer(ContexteRobot &ctx){
     ctx.ouvrirPince();
-
+    afficherNom();
 }
 
 void OuvrirPince::afficherNom() const{

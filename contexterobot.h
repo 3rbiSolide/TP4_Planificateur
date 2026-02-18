@@ -8,7 +8,7 @@ private:
     int m_angleActuel;
 public:
     // Constructeur
-    ContexteRobot(double p_x, double p_y, double p_z , bool p_pince_ouverte);
+    ContexteRobot(double p_x, double p_y, double p_z, bool p_pince_ouverte);
 
     // Accès lecture
     double getX();
