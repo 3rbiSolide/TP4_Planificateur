@@ -6,7 +6,7 @@ static const double XMIN = -1000;
 static const double XMAX = 1000;
 static const double YMIN = -1000;
 static const double YMAX = 1000;
-static const double ZMIN = 0;
+static const double ZMIN = -1000;
 static const double ZMAX = 1000;
 
 
