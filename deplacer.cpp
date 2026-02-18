@@ -8,7 +8,7 @@ Deplacer::Deplacer(double p_dx, double p_dy, double p_dz): m_dx(p_dx), m_dy(p_dy
 
 void Deplacer::executer(ContexteRobot &ctx){
     ctx.deplacerVers(ctx.getX()+ m_dx, ctx.getY()+ m_dy, ctx.getZ()+ m_dz);
-    afficherNom();
+
 }
 
 void Deplacer::afficherNom() const{
